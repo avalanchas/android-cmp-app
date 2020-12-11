@@ -210,7 +210,7 @@ fun swipeAndChooseAction(
     onView(allOf(withId(resIdListItem), isDisplayed())).perform(ViewActions.swipeLeft())
 //    onView(allOf(withId(resId), isDisplayed())).perform(ViewActions.click())
     performClickById(resId)
-    onView(withText(field)).perform(ViewActions.scrollTo(), ViewActions.click())
+    performClickByText(field)
 }
 
 fun checkWebViewDoesNotHasText(text: String) {
