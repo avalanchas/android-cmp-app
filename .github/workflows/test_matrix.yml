@@ -49,7 +49,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: google_apis
           script: ./gradlew app:connectedDebugAndroidTest
       - name: 'Publish Example-app Test Report'
         if: always()
@@ -83,7 +82,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: google_apis
           script: ./gradlew :metaapp:connectedDebugAndroidTest
       - name: 'Publish Metaapp Test Report'
         if: always()
