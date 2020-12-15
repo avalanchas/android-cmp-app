@@ -23,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
       - name: running unit tests
         run: ./gradlew test --quiet --build-cache
-  ui-tests-api 29:
+  ui-tests-api_29:
     runs-on: macos-latest
     strategy:
       fail-fast: false
@@ -67,7 +67,7 @@ jobs:
         with:
           name: 'metaap-test-report'
           path: samples/metaapp/build/reports/androidTests/*
-  ui-tests-api 28:
+  ui-tests-api_28:
     runs-on: macos-latest
     strategy:
       fail-fast: false
