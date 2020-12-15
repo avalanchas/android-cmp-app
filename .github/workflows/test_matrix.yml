@@ -23,12 +23,12 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
       - name: running unit tests
         run: ./gradlew test --quiet --build-cache
-  ui-test-app:
+  ui-tests-api 29:
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
-        api-level: [29, 28, 27, 26, 25, 24]
+        api-level: [29]
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
@@ -55,13 +55,24 @@ jobs:
         uses: actions/upload-artifact@v2-preview
         with:
           name: 'example-app-test-report'
-          path: app/build/reports/androidTests/*
-  ui-test-metaapp:
+          path: samples/app/build/reports/androidTests/*
+      - name: run MetaApp tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          script: ./gradlew :metaapp:connectedDebugAndroidTest
+      - name: 'Publish Metaapp Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'metaap-test-report'
+          path: samples/metaapp/build/reports/androidTests/*
+  ui-tests-api 28:
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
-        api-level: [29, 28, 27, 26, 25, 24]
+        api-level: [28]
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
@@ -78,6 +89,17 @@ jobs:
             !~/cache/exclude
             **/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: run Example app tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          script: ./gradlew app:connectedDebugAndroidTest
+      - name: 'Publish Example-app Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'example-app-test-report'
+          path: samples/app/build/reports/androidTests/*
       - name: run MetaApp tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -88,4 +110,4 @@ jobs:
         uses: actions/upload-artifact@v2-preview
         with:
           name: 'metaap-test-report'
-          path: metaapp/build/reports/androidTests/*
+          path: samples/metaapp/build/reports/androidTests/*
