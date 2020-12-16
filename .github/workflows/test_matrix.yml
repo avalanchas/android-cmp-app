@@ -28,8 +28,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        api-level_1: [29, 28]
-        api-level_2: [25, 24]
+        api-level: [29, 28, 25, 24]
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
@@ -49,7 +48,7 @@ jobs:
       - name: run Example app tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level_1 }}
+          api-level: ${{ matrix.api-level }}
           script: ./gradlew app:connectedDebugAndroidTest
       - name: 'Publish Example-app Test Report'
         if: always()
@@ -60,29 +59,7 @@ jobs:
       - name: run MetaApp tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level_1 }}
-          script: ./gradlew :metaapp:connectedDebugAndroidTest
-      - name: 'Publish Metaapp Test Report'
-        if: always()
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: 'metaap-test-report'
-          path: samples/metaapp/build/reports/androidTests/*
-      - name: run Example app tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level_2 }}
-          script: ./gradlew app:connectedDebugAndroidTest
-      - name: 'Publish Example-app Test Report'
-        if: always()
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: 'example-app-test-report'
-          path: samples/app/build/reports/androidTests/*
-      - name: run MetaApp tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level_2 }}
+          api-level: ${{ matrix.api-level }}
           script: ./gradlew :metaapp:connectedDebugAndroidTest
       - name: 'Publish Metaapp Test Report'
         if: always()
