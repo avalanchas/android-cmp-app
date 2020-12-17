@@ -63,7 +63,7 @@ jobs:
         with:
           name: 'metaap-test-report'
           path: samples/metaapp/build/reports/androidTests/* 
-  ui-tests_2api8:
+  ui-tests_api28:
     runs-on: macos-latest    
     steps:
       - uses: actions/checkout@v2
@@ -103,7 +103,7 @@ jobs:
         with:
           name: 'metaap-test-report'
           path: samples/metaapp/build/reports/androidTests/*
-   ui-tests_api25:
+  ui-tests_api25:
     runs-on: macos-latest    
     steps:
       - uses: actions/checkout@v2
@@ -143,7 +143,7 @@ jobs:
         with:
           name: 'metaap-test-report'
           path: samples/metaapp/build/reports/androidTests/*
-   ui-tests_api24:
+  ui-tests_api24:
     runs-on: macos-latest    
     steps:
       - uses: actions/checkout@v2
