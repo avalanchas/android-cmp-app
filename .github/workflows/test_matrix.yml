@@ -23,12 +23,8 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
       - name: running unit tests
         run: ./gradlew test --quiet --build-cache
-  ui-tests:
-    runs-on: macos-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        api-level: [29, 28, 25, 24]
+  ui-tests_api29:
+    runs-on: macos-latest    
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8
@@ -48,7 +44,7 @@ jobs:
       - name: run Example app tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: 29
           script: ./gradlew app:connectedDebugAndroidTest
       - name: 'Publish Example-app Test Report'
         if: always()
@@ -59,7 +55,127 @@ jobs:
       - name: run MetaApp tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: 29
+          script: ./gradlew :metaapp:connectedDebugAndroidTest
+      - name: 'Publish Metaapp Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'metaap-test-report'
+          path: samples/metaapp/build/reports/androidTests/* 
+  ui-tests_2api8:
+    runs-on: macos-latest    
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: creating local.properties # this file is normally added to .gitignore
+        run: touch local.properties
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: run Example app tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
+          script: ./gradlew app:connectedDebugAndroidTest
+      - name: 'Publish Example-app Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'example-app-test-report'
+          path: samples/app/build/reports/androidTests/*
+      - name: run MetaApp tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 28
+          script: ./gradlew :metaapp:connectedDebugAndroidTest
+      - name: 'Publish Metaapp Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'metaap-test-report'
+          path: samples/metaapp/build/reports/androidTests/*
+   ui-tests_api25:
+    runs-on: macos-latest    
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: creating local.properties # this file is normally added to .gitignore
+        run: touch local.properties
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: run Example app tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 25
+          script: ./gradlew app:connectedDebugAndroidTest
+      - name: 'Publish Example-app Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'example-app-test-report'
+          path: samples/app/build/reports/androidTests/*
+      - name: run MetaApp tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 25
+          script: ./gradlew :metaapp:connectedDebugAndroidTest
+      - name: 'Publish Metaapp Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'metaap-test-report'
+          path: samples/metaapp/build/reports/androidTests/*
+   ui-tests_api24:
+    runs-on: macos-latest    
+    steps:
+      - uses: actions/checkout@v2
+      - name: set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: creating local.properties # this file is normally added to .gitignore
+        run: touch local.properties
+      - name: Cache multiple paths
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/cache
+            !~/cache/exclude
+            **/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: run Example app tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 24
+          script: ./gradlew app:connectedDebugAndroidTest
+      - name: 'Publish Example-app Test Report'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'example-app-test-report'
+          path: samples/app/build/reports/androidTests/*
+      - name: run MetaApp tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 24
           script: ./gradlew :metaapp:connectedDebugAndroidTest
       - name: 'Publish Metaapp Test Report'
         if: always()
