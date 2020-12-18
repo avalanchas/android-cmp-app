@@ -1,4 +1,4 @@
-name: Test
+name: UI Tests API 26
 on:
   push:
     branches: [ test_workflow ]
@@ -21,10 +21,10 @@ jobs:
             !~/cache/exclude
             **/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-      - name: run Example app tests
+      - name: run Example app and Metaapp tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 27
+          api-level: 26
           script: ./gradlew app:connectedDebugAndroidTest :metaapp:connectedDebugAndroidTest
       - name: 'Publish Example-app Test Report'
         if: always()
