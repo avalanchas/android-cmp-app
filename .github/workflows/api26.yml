@@ -1,7 +1,7 @@
 name: Test
 on:
   push:
-    branches: [ test_workflow_disabled ]
+    branches: [ test_workflow ]
 jobs:
   ui-tests:
     runs-on: macos-latest
@@ -24,7 +24,7 @@ jobs:
       - name: run Example app tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 24
+          api-level: 26
           script: ./gradlew app:connectedDebugAndroidTest :metaapp:connectedDebugAndroidTest
       - name: 'Publish Example-app Test Report'
         if: always()
