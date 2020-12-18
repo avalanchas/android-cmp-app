@@ -1,9 +1,9 @@
-name: UI Tests API 28
+name: UI Tests API 29
 on:
   push:
     branches: [ test_workflow ]
 jobs:
-  ui-tests:
+  ui-tests-api-29:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
