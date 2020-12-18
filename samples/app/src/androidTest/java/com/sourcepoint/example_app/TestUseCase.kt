@@ -136,7 +136,7 @@ class TestUseCase {
 
         fun checkCookieNotExist(url : String){
             CookieManager.getInstance()
-                .getCookie(url)
+                .getCookie(url) ?: ""
                 .contains("authId=")
                 .assertFalse()
         }
