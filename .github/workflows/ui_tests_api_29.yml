@@ -1,4 +1,4 @@
-name: Testing Matrix
+name: Testing Matrix API 29
 on:
   push:
     branches: [ SP-5728_test_matrix_github_action ]
@@ -21,22 +21,28 @@ jobs:
             !~/cache/exclude
             **/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
+      - name: run MetaApp tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew :metaapp:connectedDebugAndroidTest
       - name: run Example app tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
-          script: ./gradlew app:connectedDebugAndroidTest
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew :app:connectedDebugAndroidTest
       - name: 'Publish Example-app Test Report'
         if: always()
         uses: actions/upload-artifact@v2-preview
         with:
           name: 'example-app-test-report'
           path: samples/app/build/reports/androidTests/*
-      - name: run MetaApp tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          script: ./gradlew :metaapp:connectedDebugAndroidTest
       - name: 'Publish Metaapp Test Report'
         if: always()
         uses: actions/upload-artifact@v2-preview
