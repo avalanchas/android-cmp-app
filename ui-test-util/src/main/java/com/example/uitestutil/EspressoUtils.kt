@@ -12,6 +12,7 @@ import androidx.test.espresso.web.sugar.Web.onWebView
 import androidx.test.espresso.web.webdriver.DriverAtoms.*
 import androidx.test.espresso.web.webdriver.Locator
 import org.hamcrest.CoreMatchers
+import org.hamcrest.Matchers
 import org.hamcrest.core.AllOf.allOf
 import org.hamcrest.core.StringContains
 import org.hamcrest.core.StringContains.containsString
@@ -133,7 +134,7 @@ fun insertTextByResId(
 
 @Throws(Throwable::class)
 fun checkWebViewHasText(text: String) {
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .check(
             webMatches(
                 Atoms.getCurrentUrl(),
@@ -144,14 +145,14 @@ fun checkWebViewHasText(text: String) {
 
 @Throws(Throwable::class)
 fun checkElementWithText(id : String, expected: String) {
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.ID, id))
         .check(webMatches(getText(), containsString(expected)));
 }
 
 @Throws(Throwable::class)
 fun performClickOnWebViewByContent(text: String) {
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.XPATH, "//button[contains(text(), '$text')]"))
         .perform(webScrollIntoView())
         .perform(webClick())
@@ -159,7 +160,7 @@ fun performClickOnWebViewByContent(text: String) {
 
 @Throws(Throwable::class)
 fun performClickOnWebViewByClass(classValue: String) {
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.CLASS_NAME, classValue))
         .perform(webScrollIntoView())
         .perform(webClick())
@@ -167,20 +168,20 @@ fun performClickOnWebViewByClass(classValue: String) {
 
 @Throws(Throwable::class)
 fun checkConsentState(consent: String, selected : Boolean) {
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.XPATH, "//label[@aria-label='$consent']"))
         .withElement(findElement(Locator.XPATH, "//label[@aria-checked='$selected']"))
 }
 
 @Throws(Throwable::class)
 fun checkPMTabSelected( expected : String){
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.XPATH, "//div[contains(@class, 'pm-tab active') and text()='$expected']"))
 }
 
 @Throws(Throwable::class)
 fun performClickPMTabSelected( expected : String){
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.XPATH, "//div[contains(@class, 'pm-tab') and text()='$expected']"))
         .perform(webScrollIntoView())
         .perform(webClick())
@@ -188,7 +189,7 @@ fun performClickPMTabSelected( expected : String){
 
 @Throws(Throwable::class)
 fun setCheckBoxTrue(property : String){
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.XPATH, "//label[@aria-label='$property']/span[@class='on']"))
         .perform(webScrollIntoView())
         .perform(webClick())
@@ -196,7 +197,7 @@ fun setCheckBoxTrue(property : String){
 
 @Throws(Throwable::class)
 fun checkConsentWebView(consent: String) {
-    onWebView()
+    onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
         .withElement(findElement(Locator.XPATH, "//label[@aria-label='$consent']/span[@class='slider round']"))
         .perform(webScrollIntoView())
         .perform(webClick())
@@ -215,7 +216,7 @@ fun swipeAndChooseAction(
 
 fun checkWebViewDoesNotHasText(text: String) {
     try {
-        onWebView()
+        onWebView(Matchers.allOf(isDisplayed(), isJavascriptEnabled()))
             .check(
                 webMatches(
                     Atoms.getCurrentUrl(),
