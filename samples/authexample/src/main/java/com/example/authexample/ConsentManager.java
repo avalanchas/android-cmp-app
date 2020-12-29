@@ -7,13 +7,12 @@ import android.util.Log;
 import android.view.View;
 
 import com.sourcepoint.gdpr_cmplibrary.ConsentLibBuilder;
-import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
+import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 import com.sourcepoint.gdpr_cmplibrary.GDPRUserConsent;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashSet;
 import java.util.Scanner;
 
 abstract class ConsentManager {
@@ -34,7 +33,7 @@ abstract class ConsentManager {
     }
 
     private ConsentLibBuilder buildGDPRConsentLib(PropertyConfig config) {
-        return GDPRConsentLib.newBuilder(config.accountId, config.propertyName, config.propertyId, config.pmId, activity)
+        return GDPRConsentLibImpl.newBuilder(config.accountId, config.propertyName, config.propertyId, config.pmId, activity)
                 .setOnConsentUIReady(view -> {
                     showView(view);
                     Log.i(TAG, "onConsentUIReady");

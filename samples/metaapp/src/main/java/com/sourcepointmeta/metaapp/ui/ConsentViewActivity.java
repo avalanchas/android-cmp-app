@@ -25,12 +25,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.sourcepoint.gdpr_cmplibrary.ConsentLibBuilder;
-import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
-import com.sourcepoint.gdpr_cmplibrary.GDPRUserConsent;
-import com.sourcepoint.gdpr_cmplibrary.MessageLanguage;
-import com.sourcepoint.gdpr_cmplibrary.NativeMessage;
-import com.sourcepoint.gdpr_cmplibrary.NativeMessageAttrs;
+import com.sourcepoint.gdpr_cmplibrary.*;
+import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 import com.sourcepointmeta.metaapp.R;
 import com.sourcepointmeta.metaapp.SourcepointApp;
 import com.sourcepointmeta.metaapp.adapters.ConsentListRecyclerView;
@@ -87,8 +83,8 @@ public class ConsentViewActivity extends BaseActivity<ConsentViewViewModel> {
             mMainViewGroup.removeView(view);
     }
 
-    private GDPRConsentLib buildConsentLib(Property property, Activity activity) {
-        ConsentLibBuilder consentLibBuilder = GDPRConsentLib.newBuilder(property.getAccountID(), property.getProperty(), property.getPropertyID(), property.getPmID(), activity)
+    private GDPRConsentLibImpl buildConsentLib(Property property, Activity activity) {
+        ConsentLibBuilder consentLibBuilder = GDPRConsentLibImpl.newBuilder(property.getAccountID(), property.getProperty(), property.getPropertyID(), property.getPmID(), activity)
                 .setStagingCampaign(property.isStaging())
                 .setMessageTimeOut(30000)
                 .setOnConsentUIReady(view -> {
@@ -434,7 +430,7 @@ public class ConsentViewActivity extends BaseActivity<ConsentViewViewModel> {
             }
 
             @Override
-            public void setCallBacks(GDPRConsentLib consentLib) {
+            public void setCallBacks(GDPRConsentLibImpl consentLib) {
                 super.setCallBacks(consentLib);
             }
         };

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 
 import com.sourcepoint.gdpr_cmplibrary.exception.*;
-import okhttp3.OkHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +23,7 @@ import java.util.Locale;
  * }
  * </pre>
  */
-public class GDPRConsentLib {
+public class GDPRConsentLibImpl implements GDPRConsentLib{
     static final String PM_BASE_URL = "https://cdn.privacy-mgmt.com/privacy-manager/index.html";
     static final String OTT_PM_BASE_URL = "https://cdn.privacy-mgmt.com/privacy-manager-ott/index.html";
 
@@ -73,7 +72,7 @@ public class GDPRConsentLib {
     public NativeMessage nativeView;
 
     public interface Callback {
-        void run(GDPRConsentLib c);
+        void run(GDPRConsentLibImpl c);
     }
 
     public interface OnConsentUIReadyCallback {
@@ -127,12 +126,12 @@ public class GDPRConsentLib {
 
     public class OnBeforeSendingConsentComplete implements ProneToFailure {
         public void post(ConsentAction a){
-            GDPRConsentLib.this.sendConsent(a);
+            GDPRConsentLibImpl.this.sendConsent(a);
         }
 
         @Override
         public void onFailure(ConsentLibException exception) {
-            GDPRConsentLib.this.onErrorTask(exception);
+            GDPRConsentLibImpl.this.onErrorTask(exception);
         }
     }
 
@@ -154,7 +153,7 @@ public class GDPRConsentLib {
         return new ConsentLibBuilder(accountId, property, propertyId, pmId, context);
     }
 
-    GDPRConsentLib(ConsentLibBuilder b) {
+    GDPRConsentLibImpl(ConsentLibBuilder b) {
         context = b.getContext();
         property = b.propertyConfig.propertyName;
         accountId = b.propertyConfig.accountId;
@@ -188,7 +187,7 @@ public class GDPRConsentLib {
     private Runnable onCountdownFinished() {
         return () -> {
             logger.error(new GenericSDKException("a timeout has occurred when loading the message"));
-            GDPRConsentLib.this.onErrorTask(new ConsentLibException("a timeout has occurred when loading the message"));
+            GDPRConsentLibImpl.this.onErrorTask(new ConsentLibException("a timeout has occurred when loading the message"));
         };
     }
 
@@ -240,7 +239,7 @@ public class GDPRConsentLib {
 
             @Override
             public void onError(ConsentLibException error) {
-                GDPRConsentLib.this.onErrorTask(error);
+                GDPRConsentLibImpl.this.onErrorTask(error);
             }
 
             @Override
@@ -250,7 +249,7 @@ public class GDPRConsentLib {
 
             @Override
             public void onAction(ConsentAction action) {
-                GDPRConsentLib.this.onAction(action);
+                GDPRConsentLibImpl.this.onAction(action);
             }
 
             @Override
@@ -263,7 +262,7 @@ public class GDPRConsentLib {
 
     public void onAction(ConsentAction action) {
         try {
-            uiThreadHandler.postIfEnabled( () ->GDPRConsentLib.this.onAction.run(action.actionType));
+            uiThreadHandler.postIfEnabled( () -> GDPRConsentLibImpl.this.onAction.run(action.actionType));
             switch (action.actionType) {
                 case SHOW_OPTIONS:
                     onShowOptions(action);
@@ -280,7 +279,7 @@ public class GDPRConsentLib {
             }
         } catch (Exception e) {
             logger.error(new InvalidOnActionEventPayloadException("Unexpected error when calling onAction."));
-            GDPRConsentLib.this.onErrorTask(new ConsentLibException(e, "Unexpected error when calling onAction."));
+            GDPRConsentLibImpl.this.onErrorTask(new ConsentLibException(e, "Unexpected error when calling onAction."));
         }
     }
 
@@ -357,6 +356,7 @@ public class GDPRConsentLib {
      * Communicates with SourcePoint to load the message. It all happens in the background and the WebView
      * will only show after the message is ready to be displayed (received data from SourcePoint).
      */
+    @Override
     public void run() {
         try {
             mCountDownTimer.start();
@@ -369,6 +369,7 @@ public class GDPRConsentLib {
         }
     }
 
+    @Override
     public void showPm() {
         showPm(null,null);
     }
@@ -470,19 +471,19 @@ public class GDPRConsentLib {
     void showView(View view, boolean isFromPM) {
         mCountDownTimer.cancel();
         if (!hasParent(view)) {
-            uiThreadHandler.postIfEnabled(() -> GDPRConsentLib.this.onConsentUIReady.run(view));
+            uiThreadHandler.postIfEnabled(() -> GDPRConsentLibImpl.this.onConsentUIReady.run(view));
         }
         if (isFromPM) runPMReady();
         else runMessageReady();
     }
 
     private void runPMReady(){
-        uiThreadHandler.postIfEnabled(GDPRConsentLib.this.pmReady::run);
+        uiThreadHandler.postIfEnabled(GDPRConsentLibImpl.this.pmReady::run);
         isPmOn = true;
     }
 
     private void runMessageReady(){
-        uiThreadHandler.postIfEnabled(GDPRConsentLib.this.messageReady::run);
+        uiThreadHandler.postIfEnabled(GDPRConsentLibImpl.this.messageReady::run);
     }
 
     public void closeAllViews(boolean requestFromPM) {
@@ -503,7 +504,7 @@ public class GDPRConsentLib {
 
     protected void closeView(View v, boolean requestFromPM) {
         if (hasParent(v)) {
-            uiThreadHandler.postIfEnabled(() -> GDPRConsentLib.this.onConsentUIFinished.run(v));
+            uiThreadHandler.postIfEnabled(() -> GDPRConsentLibImpl.this.onConsentUIFinished.run(v));
             if (requestFromPM) runPMFinished();
             else runMessageFinished();
         }
@@ -648,7 +649,7 @@ public class GDPRConsentLib {
         }
         mCountDownTimer.cancel();
         closeCurrentMessageView(isPmOn);
-        uiThreadHandler.postIfEnabled(() -> GDPRConsentLib.this.onError.run(e));
+        uiThreadHandler.postIfEnabled(() -> GDPRConsentLibImpl.this.onError.run(e));
         destroy();
     }
 

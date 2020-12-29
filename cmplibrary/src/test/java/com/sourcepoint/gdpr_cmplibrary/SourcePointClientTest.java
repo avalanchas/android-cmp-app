@@ -45,7 +45,7 @@ import static org.mockito.Mockito.when;
 public class SourcePointClientTest {
 
     private SourcePointClient sourcePointClient;
-    private GDPRConsentLib.OnLoadComplete onLoadComplete;
+    private GDPRConsentLibImpl.OnLoadComplete onLoadComplete;
 
     private static final String consentUUID = "consentUUID";
     private static final String euConsent = "euConsent";
@@ -61,7 +61,7 @@ public class SourcePointClientTest {
     public void setUp() {
         remoteCall = mock(Call.class);
         http = getOkHttpClientMock();
-        onLoadComplete = mock(GDPRConsentLib.OnLoadComplete.class);
+        onLoadComplete = mock(GDPRConsentLibImpl.OnLoadComplete.class);
         networkInfo = getNetworkInfo();
         connectivityManager = getConnectivityManager();
         sourcePointClient =  new SourcePointClient(http, getSourcePointClientConfig(), connectivityManager, new MockLogger());

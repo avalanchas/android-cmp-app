@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sourcepoint.example_app.core.DataProvider;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
+import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 
 import kotlin.Lazy;
 
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private GDPRConsentLib buildGDPRConsentLib() {
-        return GDPRConsentLib.newBuilder(accountId, propertyName, propertyId, pmId,this)
+        return GDPRConsentLibImpl.newBuilder(accountId, propertyName, propertyId, pmId,this)
                 .setOnConsentUIReady(this::showView)
                 .setOnAction(actionType  -> Log.i(TAG , "ActionType: " + actionType.toString()))
                 .setOnConsentUIFinished(this::removeView)

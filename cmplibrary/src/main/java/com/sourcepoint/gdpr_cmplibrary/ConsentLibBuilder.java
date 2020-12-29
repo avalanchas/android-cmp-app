@@ -1,7 +1,6 @@
 package com.sourcepoint.gdpr_cmplibrary;
 
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -23,17 +22,17 @@ public class ConsentLibBuilder {
 
     public  static final long DEFAULT_MESSAGE_TIMEOUT = 10000;
 
-    protected GDPRConsentLib.OnConsentUIReadyCallback onConsentUIReady;
-    protected GDPRConsentLib.OnConsentUIFinishedCallback onConsentUIFinished;
-    protected GDPRConsentLib.OnConsentReadyCallback onConsentReady;
-    protected GDPRConsentLib.OnErrorCallback onError;
-    protected GDPRConsentLib.pmReadyCallback pmReady = () -> {};
-    protected GDPRConsentLib.messageReadyCallback messageReady = () -> {};
-    protected GDPRConsentLib.pmFinishedCallback pmFinished = () -> {};
-    protected GDPRConsentLib.messageFinishedCallback messageFinished = () -> {};
-    protected GDPRConsentLib.onActionCallback onAction = a -> {};
-    protected GDPRConsentLib.onBeforeSendingConsent onBeforeSendingConsent = (a, c) -> c.post(a);
-    protected GDPRConsentLib.OnNoIntentActivitiesFound onNoIntentActivitiesFound = url -> {};
+    protected GDPRConsentLibImpl.OnConsentUIReadyCallback onConsentUIReady;
+    protected GDPRConsentLibImpl.OnConsentUIFinishedCallback onConsentUIFinished;
+    protected GDPRConsentLibImpl.OnConsentReadyCallback onConsentReady;
+    protected GDPRConsentLibImpl.OnErrorCallback onError;
+    protected GDPRConsentLibImpl.pmReadyCallback pmReady = () -> {};
+    protected GDPRConsentLibImpl.messageReadyCallback messageReady = () -> {};
+    protected GDPRConsentLibImpl.pmFinishedCallback pmFinished = () -> {};
+    protected GDPRConsentLibImpl.messageFinishedCallback messageFinished = () -> {};
+    protected GDPRConsentLibImpl.onActionCallback onAction = a -> {};
+    protected GDPRConsentLibImpl.onBeforeSendingConsent onBeforeSendingConsent = (a, c) -> c.post(a);
+    protected GDPRConsentLibImpl.OnNoIntentActivitiesFound onNoIntentActivitiesFound = url -> {};
 
     boolean stagingCampaign, shouldCleanConsentOnError, isOTT = false;
     SourcePointClient sourcePointClient;
@@ -110,7 +109,7 @@ public class ConsentLibBuilder {
      * @return ConsentLibBuilder - the next build step
      * @see ConsentLibBuilder
      */
-    public ConsentLibBuilder setOnConsentReady(GDPRConsentLib.OnConsentReadyCallback callback) {
+    public ConsentLibBuilder setOnConsentReady(GDPRConsentLibImpl.OnConsentReadyCallback callback) {
         onConsentReady = callback;
         return this;
     }
@@ -120,17 +119,17 @@ public class ConsentLibBuilder {
      * @param callback to be called when the message is ready to be displayed
      * @return ConsentLibBuilder
      */
-    public ConsentLibBuilder setOnConsentUIReady(GDPRConsentLib.OnConsentUIReadyCallback callback) {
+    public ConsentLibBuilder setOnConsentUIReady(GDPRConsentLibImpl.OnConsentUIReadyCallback callback) {
         onConsentUIReady = callback;
         return this;
     }
 
-    public ConsentLibBuilder setOnPMReady(GDPRConsentLib.pmReadyCallback callback) {
+    public ConsentLibBuilder setOnPMReady(GDPRConsentLibImpl.pmReadyCallback callback) {
         this.pmReady = callback;
         return this;
     }
 
-    public ConsentLibBuilder setOnMessageReady(GDPRConsentLib.messageReadyCallback callback) {
+    public ConsentLibBuilder setOnMessageReady(GDPRConsentLibImpl.messageReadyCallback callback) {
         this.messageReady = callback;
         return this;
     }
@@ -140,32 +139,32 @@ public class ConsentLibBuilder {
      * @param callback to be called when the message is ready to disapear
      * @return ConsentLibBuilder
      */
-    public ConsentLibBuilder setOnConsentUIFinished(GDPRConsentLib.OnConsentUIFinishedCallback callback) {
+    public ConsentLibBuilder setOnConsentUIFinished(GDPRConsentLibImpl.OnConsentUIFinishedCallback callback) {
         onConsentUIFinished = callback;
         return this;
     }
 
-    public ConsentLibBuilder setOnPMFinished(GDPRConsentLib.pmFinishedCallback callback) {
+    public ConsentLibBuilder setOnPMFinished(GDPRConsentLibImpl.pmFinishedCallback callback) {
         this.pmFinished = callback;
         return this;
     }
 
-    public ConsentLibBuilder setOnMessageFinished(GDPRConsentLib.messageFinishedCallback callback) {
+    public ConsentLibBuilder setOnMessageFinished(GDPRConsentLibImpl.messageFinishedCallback callback) {
         this.messageFinished = callback;
         return this;
     }
 
-    public ConsentLibBuilder setOnAction(GDPRConsentLib.onActionCallback callback){
+    public ConsentLibBuilder setOnAction(GDPRConsentLibImpl.onActionCallback callback){
         this.onAction = callback;
         return this;
     }
 
-    public ConsentLibBuilder setOnBeforeSendingConsent(GDPRConsentLib.onBeforeSendingConsent c){
+    public ConsentLibBuilder setOnBeforeSendingConsent(GDPRConsentLibImpl.onBeforeSendingConsent c){
         this.onBeforeSendingConsent = c;
         return this;
     }
 
-    public ConsentLibBuilder setOnNoIntentActivitiesFound(GDPRConsentLib.OnNoIntentActivitiesFound callback){
+    public ConsentLibBuilder setOnNoIntentActivitiesFound(GDPRConsentLibImpl.OnNoIntentActivitiesFound callback){
         this.onNoIntentActivitiesFound = callback;
         return this;
     }
@@ -176,7 +175,7 @@ public class ConsentLibBuilder {
      * @return ConsentLibBuilder - the next build step
      * @see ConsentLibBuilder
      */
-    public ConsentLibBuilder setOnError(GDPRConsentLib.OnErrorCallback callback) {
+    public ConsentLibBuilder setOnError(GDPRConsentLibImpl.OnErrorCallback callback) {
         onError = callback;
         return this;
     }
@@ -252,7 +251,7 @@ public class ConsentLibBuilder {
      * data coming from the previous Builders
      * @return GDPRConsentLib | ConsentLibNoOp
      */
-    public GDPRConsentLib build() {
+    public GDPRConsentLibImpl build() {
         return getConsentLib();
     }
 
@@ -273,7 +272,7 @@ public class ConsentLibBuilder {
         return this;
     }
 
-    protected GDPRConsentLib getConsentLib(){
-        return new GDPRConsentLib(this);
+    protected GDPRConsentLibImpl getConsentLib(){
+        return new GDPRConsentLibImpl(this);
     }
 }

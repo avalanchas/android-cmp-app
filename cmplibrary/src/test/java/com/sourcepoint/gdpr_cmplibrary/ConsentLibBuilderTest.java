@@ -3,7 +3,6 @@ package com.sourcepoint.gdpr_cmplibrary;
 import android.app.Activity;
 import android.os.CountDownTimer;
 
-import com.sourcepoint.gdpr_cmplibrary.exception.Logger;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,10 +23,10 @@ import static org.mockito.MockitoAnnotations.initMocks;
 @RunWith(RobolectricTestRunner.class)
 public class ConsentLibBuilderTest {
 
-    private GDPRConsentLib.OnConsentUIReadyCallback onConsentUIReady;
-    private GDPRConsentLib.OnConsentReadyCallback onConsentReady;
-    private GDPRConsentLib.OnConsentUIFinishedCallback onConsentUIFinished;
-    private GDPRConsentLib.OnErrorCallback onError;
+    private GDPRConsentLibImpl.OnConsentUIReadyCallback onConsentUIReady;
+    private GDPRConsentLibImpl.OnConsentReadyCallback onConsentReady;
+    private GDPRConsentLibImpl.OnConsentUIFinishedCallback onConsentUIFinished;
+    private GDPRConsentLibImpl.OnErrorCallback onError;
 
     private PropertyConfig defaultConfig = new PropertyConfig(22, 1234,"mobile.demo", "1234");
 
@@ -53,7 +52,7 @@ public class ConsentLibBuilderTest {
     SourcePointClient sourcePointClientMock;
 
     @Mock
-    GDPRConsentLib consentLibMock;
+    GDPRConsentLibImpl consentLibMock;
 
     @Mock
     CountDownTimer timerMock;

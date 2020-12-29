@@ -28,12 +28,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.sourcepoint.gdpr_cmplibrary.ConsentLibBuilder;
-import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
-import com.sourcepoint.gdpr_cmplibrary.GDPRUserConsent;
-import com.sourcepoint.gdpr_cmplibrary.MessageLanguage;
-import com.sourcepoint.gdpr_cmplibrary.NativeMessage;
-import com.sourcepoint.gdpr_cmplibrary.NativeMessageAttrs;
+import com.sourcepoint.gdpr_cmplibrary.*;
+import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 import com.sourcepointmeta.metaapp.R;
 import com.sourcepointmeta.metaapp.SourcepointApp;
 import com.sourcepointmeta.metaapp.adapters.TargetingParamsAdapter;
@@ -74,7 +70,7 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
     private List<Consents> mVendorConsents = new ArrayList<>();
     private List<Consents> mPurposeConsents = new ArrayList<>();
     private ArrayList<Consents> mConsentList = new ArrayList<>();
-    private GDPRConsentLib mGDPRConsentLib;
+    private GDPRConsentLibImpl mGDPRConsentLibImpl;
 
     private void showMessageWebView(View view) {
         view.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
@@ -98,8 +94,8 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
         }
     }
 
-    private GDPRConsentLib buildConsentLib(Property property, Activity activity) {
-        ConsentLibBuilder consentLibBuilder = GDPRConsentLib.newBuilder(property.getAccountID(), property.getProperty(), property.getPropertyID(), property.getPmID(), activity)
+    private GDPRConsentLibImpl buildConsentLib(Property property, Activity activity) {
+        ConsentLibBuilder consentLibBuilder = GDPRConsentLibImpl.newBuilder(property.getAccountID(), property.getProperty(), property.getPropertyID(), property.getPmID(), activity)
                 .setStagingCampaign(property.isStaging())
                 .setMessageTimeOut(30000)
                 .setOnConsentUIReady(view -> {
@@ -409,13 +405,13 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
                     showAlertDialog(getResources().getString(R.string.property_details_exists));
                     hideProgressBar();
                 } else {
-                    mGDPRConsentLib = buildConsentLib(property, this);
+                    mGDPRConsentLibImpl = buildConsentLib(property, this);
                     if (Util.isNetworkAvailable(this)) {
                         showProgressBar();
                         if (property.isNative()){
-                            mGDPRConsentLib.run(buildNativeMessage());
+                            mGDPRConsentLibImpl.run(buildNativeMessage());
                         }else {
-                            mGDPRConsentLib.run();
+                            mGDPRConsentLibImpl.run();
                         }
                     } else {
                         showAlertDialog(getString(R.string.network_check_message));
@@ -549,7 +545,7 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
             }
 
             @Override
-            public void setCallBacks(GDPRConsentLib consentLib) {
+            public void setCallBacks(GDPRConsentLibImpl consentLib) {
                 // set only the needed callbacks
                 super.setCallBacks(consentLib);
 

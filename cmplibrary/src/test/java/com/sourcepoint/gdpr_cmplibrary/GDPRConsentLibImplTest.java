@@ -35,11 +35,11 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 @RunWith(RobolectricTestRunner.class)
-public class GDPRConsentLibTest {
+public class GDPRConsentLibImplTest {
 
     private AtomicBoolean onErrorCalled;
 
-    private GDPRConsentLib lib;
+    private GDPRConsentLibImpl lib;
 
     private final ConsentAction consentActionMock = new ConsentAction(ActionTypes.ACCEPT_ALL.code, "foo", null, "null", false, new JSONObject(), "foo_en");
     private final ConsentAction consentActionMockPMDismiss = new ConsentAction(ActionTypes.PM_DISMISS.code, "foo", null, null, false, new JSONObject(), "foo_en");
@@ -121,9 +121,9 @@ public class GDPRConsentLibTest {
     }
 
     private void setSourcePointClientMock() throws ConsentLibException {
-        doNothing().when(sourcePointClientMock).sendConsent(any(JSONObject.class), any(GDPRConsentLib.OnLoadComplete.class));
-        doNothing().when(sourcePointClientMock).sendCustomConsents(any(JSONObject.class), any(GDPRConsentLib.OnLoadComplete.class));
-        doNothing().when(sourcePointClientMock).getMessage(anyBoolean(), anyString(), anyString(), anyString(), any(GDPRConsentLib.OnLoadComplete.class));
+        doNothing().when(sourcePointClientMock).sendConsent(any(JSONObject.class), any(GDPRConsentLibImpl.OnLoadComplete.class));
+        doNothing().when(sourcePointClientMock).sendCustomConsents(any(JSONObject.class), any(GDPRConsentLibImpl.OnLoadComplete.class));
+        doNothing().when(sourcePointClientMock).getMessage(anyBoolean(), anyString(), anyString(), anyString(), any(GDPRConsentLibImpl.OnLoadComplete.class));
     }
 
     private void setContextMock(){
@@ -141,7 +141,7 @@ public class GDPRConsentLibTest {
         setTimerMock();
         setSourcePointClientMock();
         lambdaCaptor = ArgumentCaptor.forClass(Runnable.class);
-        lib = spy(new GDPRConsentLib(builderMock()){
+        lib = spy(new GDPRConsentLibImpl(builderMock()){
             @Override
             ConsentWebView buildWebView(Context context){
                 this.webView = webViewMock;
@@ -228,9 +228,9 @@ public class GDPRConsentLibTest {
 
     @Test
     public void pmURL(){
-        assertTrue(lib.pmUrl("foo_pmID", "foo_pmTab").contains(GDPRConsentLib.PM_BASE_URL));
+        assertTrue(lib.pmUrl("foo_pmID", "foo_pmTab").contains(GDPRConsentLibImpl.PM_BASE_URL));
         lib.isOTT = true;
-        assertTrue(lib.pmUrl("foo_pmID", "foo_pmTab").contains(GDPRConsentLib.OTT_PM_BASE_URL));
+        assertTrue(lib.pmUrl("foo_pmID", "foo_pmTab").contains(GDPRConsentLibImpl.OTT_PM_BASE_URL));
     }
 
     @Test

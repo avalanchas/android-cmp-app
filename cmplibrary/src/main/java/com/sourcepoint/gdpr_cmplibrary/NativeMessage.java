@@ -48,11 +48,11 @@ public class NativeMessage extends RelativeLayout {
         setBody(findViewById(R.id.MsgBody));
     }
 
-    public void setOnclickAction(ActionButton actionButton, GDPRConsentLib consentLib){
+    public void setOnclickAction(ActionButton actionButton, GDPRConsentLibImpl consentLib){
         actionButton.button.setOnClickListener(_v -> consentLib.onAction(new ConsentAction(actionButton.choiceType, String.valueOf(actionButton.choiceId),false, null)));
     }
 
-    public void setCallBacks(GDPRConsentLib consentLib) {
+    public void setCallBacks(GDPRConsentLibImpl consentLib) {
         setOnclickAction(getAcceptAll(), consentLib);
         setOnclickAction(getRejectAll(), consentLib);
         setOnclickAction(getShowOptions(), consentLib);

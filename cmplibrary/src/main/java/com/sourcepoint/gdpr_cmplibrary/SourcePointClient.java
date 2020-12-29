@@ -58,7 +58,7 @@ class SourcePointClient {
         return activeNetwork == null || !activeNetwork.isConnectedOrConnecting();
     }
 
-    void getMessage(boolean isNative, String consentUUID, String meta, String euconsent, GDPRConsentLib.OnLoadComplete onLoadComplete) throws ConsentLibException {
+    void getMessage(boolean isNative, String consentUUID, String meta, String euconsent, GDPRConsentLibImpl.OnLoadComplete onLoadComplete) throws ConsentLibException {
         if(hasLostInternetConnection()){
             throw new ConsentLibException.NoInternetConnectionException();
         }
@@ -134,7 +134,7 @@ class SourcePointClient {
     }
 
 
-    void sendConsent(JSONObject params, GDPRConsentLib.OnLoadComplete onLoadComplete) throws ConsentLibException {
+    void sendConsent(JSONObject params, GDPRConsentLibImpl.OnLoadComplete onLoadComplete) throws ConsentLibException {
         if (hasLostInternetConnection())
             throw new ConsentLibException.NoInternetConnectionException();
 
@@ -180,7 +180,7 @@ class SourcePointClient {
         });
     }
 
-    void sendCustomConsents(JSONObject params, GDPRConsentLib.OnLoadComplete onLoadComplete) throws ConsentLibException {
+    void sendCustomConsents(JSONObject params, GDPRConsentLibImpl.OnLoadComplete onLoadComplete) throws ConsentLibException {
         if (hasLostInternetConnection())
             throw new ConsentLibException.NoInternetConnectionException();
 

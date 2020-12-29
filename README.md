@@ -15,7 +15,7 @@ Instantiate and build the `ConsentLib` class via `ConsentLib.newBuilder()` stati
 Once you wish to trigger the consent workflow simply call `.run()` on the instantiated `ConsentLib`.
 
 ```java
-import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
+import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "**MainActivity";
