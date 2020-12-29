@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.sourcepoint.gdpr_cmplibrary.exception.*;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -336,7 +337,7 @@ public class GDPRConsentLibImpl implements GDPRConsentLib{
     }
 
     public void onShowOptions(ConsentAction action) {
-        showPm(action.privacyManagerId, action.pmTab);
+        loadPrivacyManager(action.privacyManagerId, action.pmTab);
     }
 
     void loadConsentUI(String url) {
@@ -357,7 +358,7 @@ public class GDPRConsentLibImpl implements GDPRConsentLib{
      * will only show after the message is ready to be displayed (received data from SourcePoint).
      */
     @Override
-    public void run() {
+    public void loadMessage() {
         try {
             mCountDownTimer.start();
             renderMsgAndSaveConsent();
@@ -368,13 +369,12 @@ public class GDPRConsentLibImpl implements GDPRConsentLib{
             onErrorTask(new ConsentLibException(e, "Unexpected error on consentLib.run()"));
         }
     }
-
     @Override
-    public void showPm() {
-        showPm(null,null);
+    public void loadPrivacyManager() {
+        loadPrivacyManager(null,null);
     }
 
-    public void showPm(String privacyManagerId, String pmTab) {
+    public void loadPrivacyManager(String privacyManagerId, String pmTab) {
         try {
             mCountDownTimer.start();
             isPmOn = true;
@@ -385,7 +385,7 @@ public class GDPRConsentLibImpl implements GDPRConsentLib{
         }
     }
 
-    public void run(NativeMessage v) {
+    public void loadMessage(NativeMessage v) {
         try {
             mCountDownTimer.start();
             nativeView = v;

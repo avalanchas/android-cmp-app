@@ -70,7 +70,7 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
     private List<Consents> mVendorConsents = new ArrayList<>();
     private List<Consents> mPurposeConsents = new ArrayList<>();
     private ArrayList<Consents> mConsentList = new ArrayList<>();
-    private GDPRConsentLibImpl mGDPRConsentLibImpl;
+    private GDPRConsentLib mGDPRConsentLibImpl;
 
     private void showMessageWebView(View view) {
         view.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
@@ -409,9 +409,9 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
                     if (Util.isNetworkAvailable(this)) {
                         showProgressBar();
                         if (property.isNative()){
-                            mGDPRConsentLibImpl.run(buildNativeMessage());
+                            mGDPRConsentLib.loadMessage(buildNativeMessage());
                         }else {
-                            mGDPRConsentLibImpl.run();
+                            mGDPRConsentLib.loadMessage();
                         }
                     } else {
                         showAlertDialog(getString(R.string.network_check_message));
