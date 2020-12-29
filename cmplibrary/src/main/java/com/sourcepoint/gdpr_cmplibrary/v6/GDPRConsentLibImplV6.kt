@@ -1,6 +1,9 @@
 package com.sourcepoint.gdpr_cmplibrary.v6
 
 import android.content.Context
+import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient
+import com.sourcepoint.gdpr_cmplibrary.v6.client.GDPRClient
+import org.json.JSONObject
 
 internal class GDPRConsentLibImplV6(
     val accountId : Int,
@@ -14,7 +17,8 @@ internal class GDPRConsentLibImplV6(
     lateinit var ccpa: CCPAClient
 
     override fun run() {
-
+        class User(name : String)
+        JSONObject()
     }
 
     override fun showPm() {
