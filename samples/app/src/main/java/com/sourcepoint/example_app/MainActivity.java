@@ -12,6 +12,9 @@ import com.sourcepoint.example_app.core.DataProvider;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 
+import com.sourcepoint.gdpr_cmplibrary.v6.builder.BuilderV6;
+import com.sourcepoint.gdpr_cmplibrary.v6.builder.GDPRConsentLibClientFirst;
+import com.sourcepoint.gdpr_cmplibrary.v6.builder.GDPRConsentLibClientSecond;
 import kotlin.Lazy;
 
 import static org.koin.java.KoinJavaComponent.inject;
@@ -70,5 +73,19 @@ public class MainActivity extends AppCompatActivity {
         mainViewGroup = findViewById(android.R.id.content);
         findViewById(R.id.review_consents).setOnClickListener(_v -> buildGDPRConsentLib().loadPrivacyManager());
         findViewById(R.id.auth_id_activity).setOnClickListener(_v -> startActivity(new Intent(this, MainActivityAuthId.class)));
+
+        GDPRConsentLibClientFirst first = new BuilderV6()
+                .setParam1()
+                .setParam2()
+                .setParam3().build(GDPRConsentLibClientFirst.class);
+
+        GDPRConsentLibClientSecond second = new BuilderV6()
+                .setParam1()
+                .setParam2()
+                .setParam3()
+                .build(GDPRConsentLibClientSecond.class);
+
+        System.out.println("======" + first);
+        System.out.println("======" + second);
     }
 }

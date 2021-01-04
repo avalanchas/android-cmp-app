@@ -1,6 +1,7 @@
 package com.sourcepoint.gdpr_cmplibrary.v6
 
 import android.content.Context
+import com.sourcepoint.gdpr_cmplibrary.NativeMessage
 import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient
 import com.sourcepoint.gdpr_cmplibrary.v6.client.GDPRClient
 import com.sourcepoint.gdpr_cmplibrary.v6.data.network.NetworkClient
@@ -21,6 +22,10 @@ internal class CCPAConsentLibImplV6(
     override fun loadMessage() {
         class User(name : String)
         JSONObject()
+    }
+
+    override fun loadMessage(nativeMessage: NativeMessage) {
+        TODO("Not yet implemented")
     }
 
     override fun loadPrivacyManager() {

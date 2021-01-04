@@ -409,9 +409,9 @@ public class NewPropertyActivity extends BaseActivity<NewPropertyViewModel> {
                     if (Util.isNetworkAvailable(this)) {
                         showProgressBar();
                         if (property.isNative()){
-                            mGDPRConsentLib.loadMessage(buildNativeMessage());
+                            mGDPRConsentLibImpl.loadMessage(buildNativeMessage());
                         }else {
-                            mGDPRConsentLib.loadMessage();
+                            mGDPRConsentLibImpl.loadMessage();
                         }
                     } else {
                         showAlertDialog(getString(R.string.network_check_message));
