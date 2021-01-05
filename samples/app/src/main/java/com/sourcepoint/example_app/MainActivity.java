@@ -10,6 +10,8 @@ import com.sourcepoint.example_app.core.DataProvider;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 import com.sourcepoint.gdpr_cmplibrary.v6.ccpa.CCPAConsentLibClient;
+import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient;
+import com.sourcepoint.gdpr_cmplibrary.v6.client.GDPRClient;
 import com.sourcepoint.gdpr_cmplibrary.v6.gdpr.GDPRConsentLibClient;
 import com.sourcepoint.gdpr_cmplibrary.v6.BuilderV6;
 import kotlin.Lazy;
@@ -90,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
                 .setPropertyId(1)
                 .setPmId("")
                 .build(CCPAConsentLibClient.class);
+
+        first.setClient(new GDPRClient() {});
+        second.setClient(new CCPAClient() {});
 
         System.out.println("======" + first);
         System.out.println("======" + second);
