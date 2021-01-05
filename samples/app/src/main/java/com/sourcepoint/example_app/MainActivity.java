@@ -5,16 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.sourcepoint.example_app.core.DataProvider;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
-
-import com.sourcepoint.gdpr_cmplibrary.v6.builder.BuilderV6;
-import com.sourcepoint.gdpr_cmplibrary.v6.builder.GDPRConsentLibClientFirst;
-import com.sourcepoint.gdpr_cmplibrary.v6.builder.GDPRConsentLibClientSecond;
+import com.sourcepoint.gdpr_cmplibrary.v6.ccpa.CCPAConsentLibClient;
+import com.sourcepoint.gdpr_cmplibrary.v6.gdpr.GDPRConsentLibClient;
+import com.sourcepoint.gdpr_cmplibrary.v6.BuilderV6;
 import kotlin.Lazy;
 
 import static org.koin.java.KoinJavaComponent.inject;
@@ -32,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private final Lazy<DataProvider> dataProvider = inject(DataProvider.class);
 
     private void showView(View view) {
-        if(view.getParent() == null){
+        if (view.getParent() == null) {
             view.setLayoutParams(new ViewGroup.LayoutParams(0, 0));
             view.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
             view.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -41,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
             mainViewGroup.addView(view);
         }
     }
+
     private void removeView(View view) {
-        if(view.getParent() != null) mainViewGroup.removeView(view);
+        if (view.getParent() != null) mainViewGroup.removeView(view);
     }
 
     private GDPRConsentLib buildGDPRConsentLib() {
-        return GDPRConsentLibImpl.newBuilder(accountId, propertyName, propertyId, pmId,this)
+        return GDPRConsentLibImpl.newBuilder(accountId, propertyName, propertyId, pmId, this)
                 .setOnConsentUIReady(this::showView)
-                .setOnAction(actionType  -> Log.i(TAG , "ActionType: " + actionType.toString()))
+                .setOnAction(actionType -> Log.i(TAG, "ActionType: " + actionType.toString()))
                 .setOnConsentUIFinished(this::removeView)
                 .setOnConsentReady(consent -> {
                     // at this point it's safe to initialise vendors
@@ -74,16 +72,21 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.review_consents).setOnClickListener(_v -> buildGDPRConsentLib().loadPrivacyManager());
         findViewById(R.id.auth_id_activity).setOnClickListener(_v -> startActivity(new Intent(this, MainActivityAuthId.class)));
 
-        GDPRConsentLibClientFirst first = new BuilderV6()
-                .setParam1()
-                .setParam2()
-                .setParam3().build(GDPRConsentLibClientFirst.class);
+        GDPRConsentLibClient first = new BuilderV6()
+                .setAccountId(1)
+                .setContex(this)
+                .setProperty("")
+                .setPropertyId(1)
+                .setPmId("")
+                .build(GDPRConsentLibClient.class);
 
-        GDPRConsentLibClientSecond second = new BuilderV6()
-                .setParam1()
-                .setParam2()
-                .setParam3()
-                .build(GDPRConsentLibClientSecond.class);
+        CCPAConsentLibClient second = new BuilderV6()
+                .setAccountId(1)
+                .setContex(this)
+                .setProperty("")
+                .setPropertyId(1)
+                .setPmId("")
+                .build(CCPAConsentLibClient.class);
 
         System.out.println("======" + first);
         System.out.println("======" + second);

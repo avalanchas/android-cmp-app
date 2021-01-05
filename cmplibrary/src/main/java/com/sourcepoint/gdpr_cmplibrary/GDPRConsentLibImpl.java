@@ -24,7 +24,7 @@ import java.util.Locale;
  * }
  * </pre>
  */
-public class GDPRConsentLibImpl implements GDPRConsentLib{
+public class GDPRConsentLibImpl implements GDPRConsentLib {
     static final String PM_BASE_URL = "https://cdn.privacy-mgmt.com/privacy-manager/index.html";
     static final String OTT_PM_BASE_URL = "https://cdn.privacy-mgmt.com/privacy-manager-ott/index.html";
 

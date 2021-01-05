@@ -1,12 +1,17 @@
-package com.sourcepoint.gdpr_cmplibrary.v6
+package com.sourcepoint.gdpr_cmplibrary.v6.ccpa
 
 import android.content.Context
 import com.sourcepoint.gdpr_cmplibrary.NativeMessage
 import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient
-import com.sourcepoint.gdpr_cmplibrary.v6.client.GDPRClient
-import com.sourcepoint.gdpr_cmplibrary.v6.data.network.NetworkClient
-import com.sourcepoint.gdpr_cmplibrary.v6.data.parser.JSONParser
 import org.json.JSONObject
+
+fun createCCPA(
+    accountId: Int,
+    property: String,
+    propertyId: Int,
+    pmId: String,
+    context: Context
+): CCPAConsentLibClient = CCPAConsentLibImplV6(accountId, property, propertyId, pmId, context)
 
 internal class CCPAConsentLibImplV6(
     val accountId : Int,
@@ -14,9 +19,8 @@ internal class CCPAConsentLibImplV6(
     val propertyId : Int,
     val pmId: String,
     val context : Context
-) : GDPRConsentLibClient{
+) : CCPAConsentLibClient {
 
-    lateinit var gdpr: GDPRClient
     lateinit var ccpa: CCPAClient
 
     override fun loadMessage() {
@@ -32,7 +36,7 @@ internal class CCPAConsentLibImplV6(
 
     }
 
-    override fun setClient(gdpr: GDPRClient) {
-        this.gdpr = gdpr
+    override fun setClient(ccpa: CCPAClient) {
+        this.ccpa = ccpa
     }
 }
