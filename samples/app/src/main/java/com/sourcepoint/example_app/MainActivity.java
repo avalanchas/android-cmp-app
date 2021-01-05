@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
          */
         GDPRConsentLibClient first = new BuilderV6()
                 .setAccountId(1)
-                .setContex(this)
+                .setContext(this)
                 .setProperty("")
                 .setPropertyId(1)
                 .setPmId("")
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         CCPAConsentLibClient second = new BuilderV6()
                 .setAccountId(1)
-                .setContex(this)
+                .setContext(this)
                 .setProperty("")
                 .setPropertyId(1)
                 .setPmId("")

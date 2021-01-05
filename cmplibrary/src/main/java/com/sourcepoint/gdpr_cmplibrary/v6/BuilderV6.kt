@@ -31,7 +31,7 @@ class BuilderV6 {
         this.propertyId = propertyId
     }
 
-    fun setContex(context : Context) = apply {
+    fun setContext(context : Context) = apply {
         this.context = context
     }
 
@@ -41,23 +41,24 @@ class BuilderV6 {
         return when (clazz) {
 
             GDPRConsentLibClient::class.java -> (createGDPR(accountId!!, property!!, propertyId!!, pmId!!, context!!) as? T)
-                ?: throw RuntimeException("Invalid class exception")
+                ?: fail("this")
 
             CCPAConsentLibClient::class.java -> (createCCPA(accountId!!, property!!, propertyId!!, pmId!!, context!!) as? T)
-                ?: throw RuntimeException("Invalid class exception")
+                ?: fail("this")
 
-            else -> throw RuntimeException("Invalid class exception")
+            else -> fail(clazz.name)
         }
 
     }
 
     private fun checkParameter(){
-        accountId ?: fail()
-        pmId ?: fail()
-        context ?: fail()
-        propertyId ?: fail()
-        property ?: fail()
+        accountId ?: failParam("accountId")
+        pmId ?: failParam("pmId")
+        context ?: failParam("context")
+        propertyId ?: failParam("propertyId")
+        property ?: failParam("property")
     }
 
-    private fun fail(): Nothing = throw RuntimeException("Invalid class exception")
+    private fun fail(m : String): Nothing = throw RuntimeException("Invalid class exception. $m is not an available option.")
+    private fun failParam(p : String): Nothing = throw RuntimeException("$p cannot be null!!!")
 }

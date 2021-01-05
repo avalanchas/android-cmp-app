@@ -17,7 +17,7 @@ class Test{
          */
         val gdprObj = BuilderV6()
             .setAccountId(1)
-            .setContex(context)
+            .setContext(context)
             .setProperty("")
             .setPropertyId(1)
             .build(GDPRConsentLibClient::class.java)
