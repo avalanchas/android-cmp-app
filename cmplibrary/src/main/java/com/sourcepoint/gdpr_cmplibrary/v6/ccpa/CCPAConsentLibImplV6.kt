@@ -3,6 +3,7 @@ package com.sourcepoint.gdpr_cmplibrary.v6.ccpa
 import android.content.Context
 import com.sourcepoint.gdpr_cmplibrary.NativeMessage
 import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient
+import com.sourcepoint.gdpr_cmplibrary.v6.client.Client
 import org.json.JSONObject
 
 fun createCCPA(
@@ -21,7 +22,7 @@ internal class CCPAConsentLibImplV6(
     val context : Context
 ) : CCPAConsentLibClient {
 
-    lateinit var ccpa: CCPAClient
+    lateinit var c: Client
 
     override fun loadMessage() {
         class User(name : String)
@@ -36,7 +37,7 @@ internal class CCPAConsentLibImplV6(
 
     }
 
-    override fun setClient(ccpa: CCPAClient) {
-        this.ccpa = ccpa
+    override fun setClient(c: Client) {
+        this.c = c
     }
 }

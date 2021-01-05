@@ -11,6 +11,7 @@ import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLibImpl;
 import com.sourcepoint.gdpr_cmplibrary.v6.ccpa.CCPAConsentLibClient;
 import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient;
+import com.sourcepoint.gdpr_cmplibrary.v6.client.Client;
 import com.sourcepoint.gdpr_cmplibrary.v6.client.GDPRClient;
 import com.sourcepoint.gdpr_cmplibrary.v6.gdpr.GDPRConsentLibClient;
 import com.sourcepoint.gdpr_cmplibrary.v6.BuilderV6;
@@ -85,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
                 .setPmId("")
                 .build(GDPRConsentLibClient.class);
 
+        // set the generic client
+        first.setClient(new Client() {});
+        // set the specific client
+        first.setClient(new GDPRClient() {});
+
         CCPAConsentLibClient second = new BuilderV6()
                 .setAccountId(1)
                 .setContex(this)
@@ -93,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
                 .setPmId("")
                 .build(CCPAConsentLibClient.class);
 
-        first.setClient(new GDPRClient() {});
+        // set the generic client
+        second.setClient(new Client() {});
+        // set the specific client
         second.setClient(new CCPAClient() {});
 
         System.out.println("======" + first);

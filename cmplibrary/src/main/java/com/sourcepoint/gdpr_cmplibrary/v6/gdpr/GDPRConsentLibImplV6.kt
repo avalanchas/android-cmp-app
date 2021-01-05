@@ -3,6 +3,7 @@ package com.sourcepoint.gdpr_cmplibrary.v6.gdpr
 import android.content.Context
 import com.sourcepoint.gdpr_cmplibrary.NativeMessage
 import com.sourcepoint.gdpr_cmplibrary.v6.client.CCPAClient
+import com.sourcepoint.gdpr_cmplibrary.v6.client.Client
 import com.sourcepoint.gdpr_cmplibrary.v6.client.GDPRClient
 import org.json.JSONObject
 
@@ -22,8 +23,7 @@ internal class GDPRConsentLibImplV6(
     val context: Context
 ) : GDPRConsentLibClient {
 
-    lateinit var gdpr: GDPRClient
-    lateinit var ccpa: CCPAClient
+    lateinit var c: Client
 
     override fun loadMessage() {
         class User(name: String)
@@ -38,7 +38,7 @@ internal class GDPRConsentLibImplV6(
 
     }
 
-    override fun setClient(gdpr: GDPRClient) {
-        this.gdpr = gdpr
+    override fun setClient(c: Client) {
+        this.c = c
     }
 }
