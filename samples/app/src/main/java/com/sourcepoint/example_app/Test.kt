@@ -9,6 +9,9 @@ import com.sourcepoint.gdpr_cmplibrary.v6.createLegislationObj
 class Test{
     fun myTest(context : Context){
 
+        /**
+         * First option
+         */
         val second = BuilderV6()
             .setAccountId(1)
             .setContex(context)
@@ -16,6 +19,9 @@ class Test{
             .setPropertyId(1)
             .build(GDPRConsentLibClient::class.java)
 
+        /**
+         * Second option
+         */
         createLegislationObj<CCPAConsentLibClient>(1, "2", 3, "4", context)
     }
 }

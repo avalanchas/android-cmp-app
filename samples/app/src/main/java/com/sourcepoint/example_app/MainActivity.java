@@ -72,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.review_consents).setOnClickListener(_v -> buildGDPRConsentLib().loadPrivacyManager());
         findViewById(R.id.auth_id_activity).setOnClickListener(_v -> startActivity(new Intent(this, MainActivityAuthId.class)));
 
+        /**
+         * First option
+         */
         GDPRConsentLibClient first = new BuilderV6()
                 .setAccountId(1)
                 .setContex(this)
