@@ -1,20 +1,20 @@
 package com.sourcepoint.gdpr_cmplibrary.data.network.model
 
 data class NativeMessageWeb(
-    val actions: List<Action>,
-    val addtlConsent: String,
-    val bucket: Int,
-    val categoryId: Int,
-    val customVendorsResponse: CustomVendorsResponse,
-    val euconsent: String,
-    val gdprApplies: Boolean,
-    val grants: String,
-    val messageId: Int,
-    val msgDescription: String,
-    val propertyId: Int,
-    val prtnUUID: String,
-    val stackInfo: StackInfo,
-    val subCategoryId: Int,
-    val uuid: String,
-    val msgJSON: String
+    val actions: List<Action>? = null,
+    val addtlConsent: String? = null,
+    val bucket: Int? = null,
+    val categoryId: Int? = null,
+    val customVendorsResponse: CustomVendorsResponse? = null,
+    val euconsent: String? = null,
+    val gdprApplies: Boolean? = null,
+    val grants: String? = null,
+    val messageId: Int? = null,
+    val msgDescription: String? = null,
+    val propertyId: Int? = null,
+    val prtnUUID: String? = null,
+    val stackInfo: StackInfo? = null,
+    val subCategoryId: Int? = null,
+    val uuid: String? = null,
+    val msgJSON: String? = null
 )
