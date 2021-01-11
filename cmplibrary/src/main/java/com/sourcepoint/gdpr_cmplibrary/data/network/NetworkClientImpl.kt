@@ -3,8 +3,6 @@ package com.sourcepoint.gdpr_cmplibrary.data.network
 import com.sourcepoint.gdpr_cmplibrary.data.executeOnLeft
 import com.sourcepoint.gdpr_cmplibrary.data.map
 import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageReq
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -18,9 +16,6 @@ private class NetworkClientImpl(
     val url: String = "https://cdn.privacy-mgmt.com/wrapper/tcfv2/v1/gdpr/native-message",
     private val responseManager: ResponseManager = createResponseManager()
 ) : NetworkClient {
-
-    private val mainScope by lazy { CoroutineScope(Dispatchers.Main) }
-    private val workerScope by lazy { CoroutineScope(Dispatchers.IO) }
 
     override fun getNativeMessage(
         nativeMessageReq: NativeMessageReq,

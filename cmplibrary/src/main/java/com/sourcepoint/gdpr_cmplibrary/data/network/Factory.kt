@@ -2,4 +2,4 @@
 
 package com.sourcepoint.gdpr_cmplibrary.data.network
 
-fun createNetClient() : NetworkClient = NetworkClientImpl()
+fun createNetClient() : NetworkClient = createNetworkClient()
