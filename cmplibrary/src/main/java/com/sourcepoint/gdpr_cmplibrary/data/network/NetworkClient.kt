@@ -1,12 +1,12 @@
 package com.sourcepoint.gdpr_cmplibrary.data.network
 
 import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageReq
-import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageWebResp
+import org.json.JSONObject
 
 interface NetworkClient {
     fun getNativeMessage(
         nativeMessageReq: NativeMessageReq,
-        success: (NativeMessageWebResp) -> Unit,
+        success: (JSONObject) -> Unit,
         error: (Throwable) -> Unit
     )
 }
