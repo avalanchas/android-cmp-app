@@ -11,7 +11,9 @@ import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONObject
 
-internal class NetworkClientImpl(
+fun createNetworkClient(): NetworkClient = NetworkClientImpl()
+
+private class NetworkClientImpl(
     private val httpClient: OkHttpClient = OkHttpClient(),
     val url: String = "https://cdn.privacy-mgmt.com/wrapper/tcfv2/v1/gdpr/native-message",
     private val responseManager: ResponseManager = createResponseManager()
