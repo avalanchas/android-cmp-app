@@ -4,15 +4,8 @@ package com.sourcepoint.gdpr_cmplibrary.data
  * Either pattern implementation
  */
 internal sealed class Either<out R> {
-    /**
-     * @param r represents the content
-     */
     data class Right<R>(val r: R) : Either<R>()
-    /**
-     * @param t represents the exception
-     * @param isConsumed is used to know if the [Throwable] has been logged already
-     */
-    data class Left(val t: Throwable, var isConsumed : Boolean = false) : Either<Nothing>()
+    data class Left(val t: Throwable) : Either<Nothing>()
 }
 
 /**

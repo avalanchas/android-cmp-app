@@ -5,7 +5,6 @@ import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageReq
 import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageWebResp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -13,7 +12,8 @@ import okhttp3.RequestBody
 import org.json.JSONObject
 
 internal class NetworkClientImpl(
-    private val httpClient: OkHttpClient = OkHttpClient()
+    private val httpClient: OkHttpClient = OkHttpClient(),
+    val url : String = "https://cdn.privacy-mgmt.com/wrapper/tcfv2/v1/gdpr/native-message"
 ) : NetworkClient {
 
     private val mainScope by lazy { CoroutineScope(Dispatchers.Main) }
@@ -27,7 +27,7 @@ internal class NetworkClientImpl(
         val body: RequestBody = RequestBody.create(mediaType, nativeMessageReq.toBodyRequest())
 
         val request: Request = Request.Builder()
-            .url("https://cdn.privacy-mgmt.com/wrapper/tcfv2/v1/gdpr/native-message")
+            .url(url)
             .post(body)
             .build()
 

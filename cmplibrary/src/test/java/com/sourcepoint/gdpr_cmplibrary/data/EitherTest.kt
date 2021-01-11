@@ -3,7 +3,6 @@ package com.sourcepoint.gdpr_cmplibrary.data
 import com.sourcepoint.gdpr_cmplibrary.assertEquals
 import com.sourcepoint.gdpr_cmplibrary.data.Either.Right
 import org.junit.Test
-import java.lang.RuntimeException
 
 class EitherTest{
 
@@ -41,13 +40,5 @@ class EitherTest{
         val second = original.flatMap { f(it).flatMap { it2 -> g(it2) } }
 
         second.assertEquals(first)
-    }
-
-    @Test
-    fun `GIVEN a Left CHECK if it was consumed`(){
-        val sut = Either.Left(RuntimeException())
-        sut.isConsumed.assertEquals(false)
-        sut.isConsumed = true
-        sut.isConsumed.assertEquals(true)
     }
 }
