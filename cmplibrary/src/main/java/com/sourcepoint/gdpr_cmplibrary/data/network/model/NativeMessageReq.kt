@@ -7,14 +7,14 @@ data class NativeMessageReq(
     val requestUUID: String,
     val meta: String
 ) {
-    override fun toString(): String {
+    fun toBodyRequest(): String {
         return """
             {
                 "accountId": $accountId,
                 "propertyId": $propertyId,
                 "propertyHref": "$propertyHref",
                 "requestUUID": "$requestUUID",
-                "meta": "{$meta}"
+                "meta": "$meta"
             }
         """.trimIndent()
     }

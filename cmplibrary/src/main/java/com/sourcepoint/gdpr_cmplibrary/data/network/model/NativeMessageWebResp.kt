@@ -1,6 +1,6 @@
 package com.sourcepoint.gdpr_cmplibrary.data.network.model
 
-data class NativeMessageWeb(
+data class NativeMessageWebResp(
     val actions: List<Action>? = null,
     val addtlConsent: String? = null,
     val bucket: Int? = null,

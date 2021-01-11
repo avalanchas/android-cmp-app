@@ -3,7 +3,7 @@ package com.sourcepoint.gdpr_cmplibrary.data.network
 import com.beust.klaxon.Klaxon
 import com.sourcepoint.gdpr_cmplibrary.TestUtilGson
 import com.sourcepoint.gdpr_cmplibrary.assertNotNull
-import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageWeb
+import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageWebResp
 import org.junit.Test
 
 class DataModelTest{
@@ -14,7 +14,7 @@ class DataModelTest{
             .assertNotNull()
 
         val result = Klaxon()
-            .parse<NativeMessageWeb>(s).assertNotNull()
+            .parse<NativeMessageWebResp>(s).assertNotNull()
 
         println(result)
 

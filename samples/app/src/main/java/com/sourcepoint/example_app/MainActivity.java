@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sourcepoint.example_app.core.DataProvider;
 import com.sourcepoint.gdpr_cmplibrary.GDPRConsentLib;
 
+import com.sourcepoint.gdpr_cmplibrary.NativeMessage;
+import com.sourcepoint.gdpr_cmplibrary.data.network.FactoryUtils;
+import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageReq;
 import kotlin.Lazy;
 
 import static org.koin.java.KoinJavaComponent.inject;
@@ -69,5 +72,15 @@ public class MainActivity extends AppCompatActivity {
         mainViewGroup = findViewById(android.R.id.content);
         findViewById(R.id.review_consents).setOnClickListener(_v -> buildGDPRConsentLib().showPm());
         findViewById(R.id.auth_id_activity).setOnClickListener(_v -> startActivity(new Intent(this, MainActivityAuthId.class)));
+
+        NativeMessageReq nativeMessage = new NativeMessageReq(
+                22,
+                7639,
+                "https://tcfv2.mobile.webview",
+                "test",
+                "{}"
+                );
+        FactoryUtils.createNetClient().getNativeMessage(nativeMessage);
+
     }
 }
