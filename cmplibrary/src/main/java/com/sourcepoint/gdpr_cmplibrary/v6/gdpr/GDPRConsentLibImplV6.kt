@@ -25,7 +25,7 @@ internal class GDPRConsentLibImplV6(
 
     lateinit var c: Client
 
-    override fun loadMessage() {
+    override fun run() {
         class User(name: String)
         JSONObject()
     }
@@ -34,7 +34,7 @@ internal class GDPRConsentLibImplV6(
         TODO("Not yet implemented")
     }
 
-    override fun loadPrivacyManager() {
+    override fun showPm() {
 
     }
 

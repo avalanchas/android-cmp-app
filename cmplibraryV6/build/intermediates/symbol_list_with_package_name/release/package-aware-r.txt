@@ -1,0 +1,24 @@
+com.example.cmplibrary
+attr exampleColor
+attr exampleDimension
+attr exampleDrawable
+attr exampleString
+id AcceptAll
+id Cancel
+id MsgBody
+id RejectAll
+id ShowOptions
+id Title
+id description_scrollview
+id native_message
+layout sample_native_message
+raw js_receiver
+string MsgBody
+string app_name
+string hello_stranger
+string i_agree
+string reject_all
+string show_opitions
+string welcome_abord
+string x
+styleable NativeMessage exampleColor exampleDimension exampleDrawable exampleString

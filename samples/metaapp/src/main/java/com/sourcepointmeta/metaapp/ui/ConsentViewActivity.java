@@ -231,7 +231,7 @@ public class ConsentViewActivity extends BaseActivity<ConsentViewViewModel> {
                 if (property.isNative()){
                     buildConsentLib(property, this).loadMessage(buildNativeMessage());
                 }else {
-                    buildConsentLib(property, this).loadMessage();
+                    buildConsentLib(property, this).run();
                 }
             } else showAlertDialog(getString(R.string.network_check_message));
         }
@@ -270,7 +270,7 @@ public class ConsentViewActivity extends BaseActivity<ConsentViewViewModel> {
             isPMLoaded = false;
             mCountDownTimer = getTimer(30000);
             mCountDownTimer.start();
-            buildConsentLib(property, this).loadPrivacyManager();
+            buildConsentLib(property, this).showPm();
         } else showAlertDialog(getString(R.string.network_check_message));
 
     }

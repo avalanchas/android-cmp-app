@@ -65,17 +65,17 @@ abstract class ConsentManager {
 
     void loadMessage(Boolean pm) {
         if (pm){
-            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).build().loadPrivacyManager();
+            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).build().showPm();
         }else {
-            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).build().loadMessage();
+            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).build().run();
         }
     }
 
     void loadMessage(boolean pm, String authId) {
         if(pm){
-            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).setAuthId(authId).build().loadPrivacyManager();
+            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).setAuthId(authId).build().showPm();
         }else {
-            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).setAuthId(authId).build().loadMessage();
+            buildGDPRConsentLib(getConfig(R.raw.mobile_demo_web)).setAuthId(authId).build().run();
         }
     }
 

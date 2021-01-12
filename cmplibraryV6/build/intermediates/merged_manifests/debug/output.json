@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "com.example.cmplibrary",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 300,
+        "versionName": "6.0.1",
+        "outputFile": "cmplibraryV6-debug.aar",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "../../library_manifest/debug/AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.example.cmplibrary",
+        "split": ""
+      }
+    }
+  ]
+}

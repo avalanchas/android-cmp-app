@@ -1,0 +1,1 @@
+/Users/sourcepoint/Development/workspace/android-cmp-app/buildSrc/build/classes/kotlin/main/Libs.class:/Users/sourcepoint/Development/workspace/android-cmp-app/buildSrc/build/classes/kotlin/main/Versions.class

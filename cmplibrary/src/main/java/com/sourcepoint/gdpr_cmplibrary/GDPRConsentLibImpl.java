@@ -358,7 +358,7 @@ public class GDPRConsentLibImpl implements GDPRConsentLib {
      * will only show after the message is ready to be displayed (received data from SourcePoint).
      */
     @Override
-    public void loadMessage() {
+    public void run() {
         try {
             mCountDownTimer.start();
             renderMsgAndSaveConsent();
@@ -370,7 +370,7 @@ public class GDPRConsentLibImpl implements GDPRConsentLib {
         }
     }
     @Override
-    public void loadPrivacyManager() {
+    public void showPm() {
         loadPrivacyManager(null,null);
     }
 
