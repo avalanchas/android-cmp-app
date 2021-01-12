@@ -1,5 +1,6 @@
 package com.sourcepoint.gdpr_cmplibrary.data.network
 
+import com.example.gdpr_cmplibrary.BuildConfig
 import com.sourcepoint.gdpr_cmplibrary.data.executeOnLeft
 import com.sourcepoint.gdpr_cmplibrary.data.map
 import com.sourcepoint.gdpr_cmplibrary.data.network.model.NativeMessageReq
@@ -13,7 +14,7 @@ fun createNetworkClient(): NetworkClient = NetworkClientImpl()
 
 private class NetworkClientImpl(
     private val httpClient: OkHttpClient = OkHttpClient(),
-    val url: String = "https://cdn.privacy-mgmt.com/wrapper/tcfv2/v1/gdpr/native-message",
+    private val url: String = BuildConfig.PRELOADING_URL,
     private val responseManager: ResponseManager = createResponseManager()
 ) : NetworkClient {
 
