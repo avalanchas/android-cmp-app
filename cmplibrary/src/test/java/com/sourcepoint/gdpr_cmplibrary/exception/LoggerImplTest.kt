@@ -31,7 +31,7 @@ class LoggerImplTest {
         val json = json(CodeList.INVALID_RESPONSE_WEB_MESSAGE)
         every { messageManager.build(ex) } returns json
 
-        val sut = createLogger(client, messageManager, "https://myserver.com/")
+        val sut = createLogger(client, messageManager, "https://myserver.com/", true)
         sut.error(ex)
 
         val slot = slot<Request>()
@@ -51,7 +51,7 @@ class LoggerImplTest {
         val json = json(ExceptionCodes("custom_code"))
         every { messageManager.build(ex) } returns json
 
-        val sut = createLogger(client, messageManager, "https://myserver.com/")
+        val sut = createLogger(client, messageManager, "https://myserver.com/", true)
         sut.error(ex)
 
         val slot = slot<Request>()
@@ -62,6 +62,20 @@ class LoggerImplTest {
             url.toString().assertEquals("https://myserver.com/")
             method.assertEquals("POST")
         }
+
+    }
+
+    @Test
+    fun `GIVEN a debuggable set to false CHECK that the logger is not called`() {
+        val ex = RenderingAppException(cause = null, description = "description", pCode = "custom_code")
+        val json = json(ExceptionCodes("custom_code"))
+        every { messageManager.build(ex) } returns json
+
+        val sut = createLogger(client, messageManager, "https://myserver.com/", false)
+        sut.error(ex)
+
+        val slot = slot<Request>()
+        verify(exactly = 0) { client.newCall(capture(slot)) }
 
     }
 

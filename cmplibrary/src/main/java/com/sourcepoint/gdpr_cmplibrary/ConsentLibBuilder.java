@@ -1,7 +1,9 @@
 package com.sourcepoint.gdpr_cmplibrary;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -62,7 +64,7 @@ public class ConsentLibBuilder {
         shouldCleanConsentOnError = true;
         messageTimeOut = DEFAULT_MESSAGE_TIMEOUT;
         this.context = context.getApplicationContext();
-        logger = initLogger(accountId, propertyId);
+        logger = initLogger(accountId, propertyId, context);
     }
 
     protected StoreClient getStoreClient(){
@@ -76,7 +78,17 @@ public class ConsentLibBuilder {
         return logger;
     }
 
-    private Logger initLogger(int accountId, int propertyId){
+    private Logger initLogger(int accountId, int propertyId, Context context){
+
+        boolean debuggable = false;
+        PackageManager pm = context.getPackageManager();
+        try {
+            ApplicationInfo appinfo = pm.getApplicationInfo(context.getPackageName(), 0);
+            debuggable = (0 != (appinfo.flags & ApplicationInfo.FLAG_DEBUGGABLE));
+        } catch (PackageManager.NameNotFoundException e) {
+            /* debuggable variable will remain false */
+        }
+
         String osVersion = String.valueOf(Build.VERSION.SDK_INT);
         ClientInfo ci = new ClientInfo(BuildConfig.VERSION_NAME, osVersion, Build.MODEL);
         return LoggerFactory.createLogger(
@@ -88,7 +100,8 @@ public class ConsentLibBuilder {
                         ci,
                         Legislation.GDPR
                 ),
-                BuildConfig.LOGGER_URL
+                BuildConfig.LOGGER_URL,
+                debuggable
         );
     }
 
