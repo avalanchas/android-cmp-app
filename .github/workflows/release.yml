@@ -53,4 +53,7 @@ jobs:
 #        releaseFiles: ${{ steps.sign.outputs.signedReleaseFile }}
 #        track: production
     - name: Add, commit and push CHANGELOG.md and README.md
+      env:
+        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       run: ./gradlew addCommitPush
