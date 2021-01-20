@@ -19,7 +19,7 @@ jobs:
       run: |
         git config user.email "carmelo@sourcepoint.com"
         git config user.name "GitHub Action"
-        ./gradlew bumpVersionCode
+        ./gradlew metaapp:bumpVersionCode
     - name: creating local.properties # this file is normally added to .gitignore
       run: touch local.properties
 #    - name: generating MetaApp build release
