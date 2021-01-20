@@ -56,7 +56,7 @@ ext {
 }
 
 versionCodePropPath {
-    path = "gradle.properties"
+    path = rootDir.path + '/samples/metaapp/gradle.properties'
 }
 
 changeLogConfig {
