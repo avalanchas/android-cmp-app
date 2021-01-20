@@ -3,7 +3,9 @@
 buildscript {
 
     ext.kotlin_version = '1.4.10'
-    
+    ext.cdVersion = "0.6.1"
+    ext.VERSION_NAME = "5.3.12"
+
     repositories {
         google()
         jcenter()
@@ -17,19 +19,22 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        def cdVersion = "0.6.1"
-        classpath "io.github.dryrum:git-utils:$cdVersion"
-        classpath "io.github.dryrum:update-changelog:$cdVersion"
-        classpath "io.github.dryrum:replace-in-file:$cdVersion"
-        classpath "io.github.dryrum:bump-version-code:$cdVersion"
     }
 }
 
 plugins {
     id 'digital.wup.android-maven-publish' version '3.6.2'
     id "com.jfrog.bintray" version "1.8.4"
+    id "io.github.dryrum.update-changelog" version "$cdVersion"
+    id "io.github.dryrum.replace-in-file" version "$cdVersion"
+    id "io.github.dryrum.git-utils" version "$cdVersion"
+    id "io.github.dryrum.bump-version-code" version "$cdVersion"
 }
+
+apply plugin : "io.github.dryrum.update-changelog"
+apply plugin : "io.github.dryrum.replace-in-file"
+apply plugin : "io.github.dryrum.git-utils"
+apply plugin: 'io.github.dryrum.bump-version-code'
 
 allprojects {
     repositories {
@@ -48,5 +53,34 @@ ext {
     espresso_version = "3.3.0"
     junit_version = "4.13.1"
     mockk_version = "1.10.3-jdk8"
-
 }
+
+versionCodePropPath {
+    path = "gradle.properties"
+}
+
+changeLogConfig {
+    changeLogPath = rootDir.path + "/CHANGELOG.md"
+    content = file(rootDir.path + "/cmplibrary/release_note.txt").text
+    version = "$VERSION_NAME"
+}
+
+replaceInFile {
+    docs {
+        doc {
+            path = rootDir.path + "/README.md"
+            find = "com.sourcepoint.cmplibrary:cmplibrary:(\\d)+\\.(\\d)+\\.(\\d)+"
+            replaceWith = "com.sourcepoint.cmplibrary:cmplibrary:$VERSION_NAME"
+        }
+    }
+}
+
+addCommitPushConfig {
+    fileList = [
+            rootDir.path + '/CHANGELOG.md',
+            rootDir.path + '/README.md',
+            rootDir.path + '/samples/metaapp/gradle.properties'
+    ]
+}
+
+
