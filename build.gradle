@@ -34,7 +34,6 @@ plugins {
 apply plugin : "io.github.dryrum.update-changelog"
 apply plugin : "io.github.dryrum.replace-in-file"
 apply plugin : "io.github.dryrum.git-utils"
-apply plugin: 'io.github.dryrum.bump-version-code'
 
 allprojects {
     repositories {
@@ -53,10 +52,6 @@ ext {
     espresso_version = "3.3.0"
     junit_version = "4.13.1"
     mockk_version = "1.10.3-jdk8"
-}
-
-versionCodePropPath {
-    path = rootDir.path + '/samples/metaapp/gradle.properties'
 }
 
 changeLogConfig {
